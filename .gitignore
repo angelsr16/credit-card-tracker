@@ -1,0 +1,41 @@
+# === Python / FastAPI ===
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+dist/
+build/
+.env
+.env.*
+.venv/
+env/
+venv/
+pip-log.txt
+*.sqlite3
+
+# === MyPy / Pyright / Type hints ===
+.mypy_cache/
+.pytype/
+.pytest_cache/
+
+# === Logs ===
+*.log
+
+# === FastAPI auto-generated OpenAPI docs ===
+openapi.json
+
+# === IDE / Editor files ===
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# === Node / Angular ===
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/package-lock.json
+
+# === OS Files ===
+.DS_Store
+Thumbs.db
