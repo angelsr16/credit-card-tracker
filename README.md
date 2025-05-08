@@ -29,7 +29,7 @@ cd finance-tracker/backend
 ```
 ### 2.- Create and activate a virtual environment 
 
-``` bash
+```bash
 python -m venv .venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 ```
@@ -44,7 +44,7 @@ pip install -r requirements.txt
 
 In the backend/ folder, create a file named .env with the following content:
 
-``` bash
+```bash
 SECRET_KEY=your-secret-key
 ALGORITHM=HS256
 DATABASE_URL=mysql+pymysql://youruser:yourpassword@localhost:3306/finance_tracker_db
@@ -102,7 +102,7 @@ cd finance-tracker/backend
 ```
 ### 2.- Crea un entorno virtual
 
-``` bash
+```bash
 python -m venv .venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 ```
@@ -117,7 +117,7 @@ pip install -r requirements.txt
 
 En la carpeta /backend, crea un archivo .env con el siguiente contenido:
 
-``` bash
+```bash
 SECRET_KEY=your-secret-key
 ALGORITHM=HS256
 DATABASE_URL=mysql+pymysql://youruser:yourpassword@localhost:3306/finance_tracker_db
