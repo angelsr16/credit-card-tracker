@@ -1,3 +1,4 @@
+from datetime import date
 from fastapi import APIRouter, Depends, HTTPException, status
 
 from sqlalchemy.orm import Session
@@ -6,14 +7,14 @@ from api.dependencies.db import get_db
 from db.models.user import User as UserModel
 from db.schemas.card import CardCreate, CardRead, CardUpdate
 from db.crud import card as crud_card, user as crud_user
-from db.schemas.transaction import TransactionRead
+from services import dashboard as dashboard_service
+from dateutil.relativedelta import relativedelta
 
 router = APIRouter(prefix="/cards")
 
 
-@router.get("/{card_id}")
-async def get_card(
-    card_id: str,
+@router.get("/")
+async def get_cards_by_user(
     db: Session = Depends(get_db),
     current_username: str = Depends(verify_token),
 ):
@@ -24,9 +25,8 @@ async def get_card(
             status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
         )
 
-    card = crud_card.get_card_by_id(db, card_id)
-
-    return CardRead.model_validate(card)
+    cards = dashboard_service.get_cards_summary(db, user_id=user.id)
+    return cards
 
 
 @router.post("/", response_model=CardRead)
@@ -80,7 +80,7 @@ async def update_card(
     return updated_card
 
 
-@router.delete("/{card_ud}")
+@router.delete("/{card_id}")
 async def delete_card(
     card_id: str, db: Session = Depends(get_db), current_username=Depends(verify_token)
 ):
@@ -111,3 +111,23 @@ async def delete_card(
         )
 
     return {"msg": "Card deleted successfully"}
+
+
+@router.patch("/{card_id}")
+async def roll_card_dates(card_id: int, db: Session = Depends(get_db)):
+    card = crud_card.get_card_by_id(db, card_id)
+
+    if not card:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Card not found"
+        )
+
+    today = date.today()
+
+    if today >= card.cut_off_date:
+        card.cut_off_date += relativedelta(months=1)
+        card.due_date += relativedelta(months=1)
+        db.commit()
+        db.refresh(card)
+
+    return card

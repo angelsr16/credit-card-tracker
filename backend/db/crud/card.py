@@ -4,6 +4,10 @@ from db.models.card import Card as CardModel
 from db.schemas.card import CardCreate, CardUpdate
 
 
+def get_cards_by_user(db: Session, user_id):
+    return db.query(CardModel).filter(CardModel.user_id == user_id).all()
+
+
 def get_card_by_id(db: Session, card_id: str):
     return db.query(CardModel).filter(CardModel.id == card_id).first()
 
