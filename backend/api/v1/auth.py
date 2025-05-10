@@ -31,10 +31,11 @@ async def login(
     form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)
 ):
     user = authenticate_user(db, form_data.username, form_data.password)
-    if not user:
+    if user is None:
         raise HTTPException(status_code=401, detail="Incorrect username or password")
 
     token = create_access_token(data={"sub": user.username})
+
     return {"access_token": token, "token_type": "bearer"}
 
 

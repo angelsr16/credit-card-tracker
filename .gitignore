@@ -31,10 +31,25 @@ openapi.json
 *.swo
 
 # === Node / Angular ===
-frontend/node_modules/
 frontend/dist/
+frontend/tmp/
+frontend/out-tsc/
 frontend/.angular/
+frontend/.cache/
+frontend/.turbo/
+frontend/coverage/
+frontend/src/environments/environment*.ts
 frontend/package-lock.json
+frontend/yarn.lock
+frontend/pnpm-lock.yaml
+
+
+# === Node ===
+**/node_modules/
+
+# === Environment files ===
+**/.env
+**/.env.*.local
 
 # === OS Files ===
 .DS_Store

@@ -7,14 +7,12 @@ from db.schemas.card import CardRead
 
 
 def get_cards_summary(db: Session, user_id: int):
-    today = date.today()
     cards = db.query(Card).filter(Card.user_id == user_id).all()
 
     card_summaries = []
     total_balance = 0
 
     for card in cards:
-        cut_off = card.cut_off_date
         due_date = card.due_date
 
         installments = (
