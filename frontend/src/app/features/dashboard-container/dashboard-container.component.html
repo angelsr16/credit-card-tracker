@@ -20,7 +20,7 @@
         <!-- SIDEBAR -->
         <div class="h-screen bg-gray-900 flex flex-col text-white overflow-hidden transition-all duration-500 ease-in-out"
             [ngStyle]="{ width: getSidebarWidth(), padding: getSidebarPadding()}" [ngClass]="{'fixed z-50': isMobile}">
-            <div class="w-full flex gap-2 items-center text-3xl">
+            <div class="w-full flex gap-2 items-center justify-center text-3xl">
 
                 @if (isMobile && isSidebarExpanded || !isMobile) {
                 <span class="text-3xl">💳</span>
@@ -35,26 +35,34 @@
                 </p>
                 }
             </div>
-        </div>
-        <!-- <div [ngClass]="
-        {'2xl:w-128 w-96': isSidebarExpanded && !isMobile, 
-        'w-3/4 fixed' : isSidebarExpanded && isMobile,
-        'hidden': !isSidebarExpanded && isMobile}"
-            class="h-screen bg-gray-900 flex flex-col p-5 text-white transition-all duration-450">
-            <div class="w-full flex gap-2 items-center text-3xl">
-                <span class="text-3xl">
-                    💳
-                </span>
-                @if (isSidebarExpanded) {
-                <p class="font-bold whitespace-nowrap transition-opacity duration-300 xl:text-2xl text-lg" [ngClass]="{
-        'opacity-0 invisible': !isSidebarExpanded,
-        'opacity-100 visible': isSidebarExpanded
-      }">
-                    Card Finance Tracker
-                </p>
+
+            @if (isSidebarExpanded) {
+            <hr class="my-5 text-gray-500">
+            }
+
+            @if(!isMobile){
+            <br><br>
+            }
+
+            <div class="flex flex-col gap-5 w-full">
+                @for (menuItem of menuItems; track $index) {
+                <div [routerLink]="menuItem.path" routerLinkActive="bg-gray-700"
+                    [routerLinkActiveOptions]="{ exact: true }"
+                    class="w-full flex items-center gap-5 font-bold hover:bg-gray-700 transition-all duration-450 px-3 py-2 text-2xl rounded-xl cursor-pointer">
+                    <i class="pi" [ngClass]="menuItem.icon" style="font-size: 1.4rem"></i>
+                    @if(isSidebarExpanded){
+                    <span class="font-bold whitespace-nowrap transition-opacity duration-300 xl:text-2xl text-lg"
+                        [ngClass]="{
+              'opacity-0 invisible': !isSidebarExpanded,
+              'opacity-100 visible': isSidebarExpanded
+            }">
+                        {{ menuItem.label }}
+                    </span>
+                    }
+                </div>
                 }
             </div>
-        </div> -->
+        </div>
 
         <div class="w-full flex flex-col">
             <!-- TOP BAR -->
@@ -75,12 +83,9 @@
                 </div>
             </div>
 
-
-
-
             <!-- MAIN CONTENT -->
-            <div class="flex w-full p-10">
-                Dashboard Content!
+            <div class="flex w-full md:p-10 p-5">
+                <router-outlet></router-outlet>
             </div>
         </div>
     </div>

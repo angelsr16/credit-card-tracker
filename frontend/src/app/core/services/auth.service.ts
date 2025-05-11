@@ -5,6 +5,7 @@ import { LOCAL_STORAGE_KEY } from '../constants/local-storage-keys';
 import { LoginForm } from '../models/ui/LoginForm';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -48,7 +49,7 @@ export class AuthService {
     });
 
     return this.http.post<any>(
-      `http://localhost:8000/users/login`,
+      `${environment.apiUrl}/users/login`,
       body.toString(),
       { headers }
     );

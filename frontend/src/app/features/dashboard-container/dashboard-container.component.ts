@@ -4,30 +4,50 @@ import { AuthService } from '../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { PopoverModule } from 'primeng/popover';
 import { AvatarModule } from 'primeng/avatar';
+import { CardsService } from '../../core/services/cards.service';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-dashboard',
-  imports: [ButtonModule, CommonModule, PopoverModule, AvatarModule],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss',
+  selector: 'app-dashboard-container',
+  imports: [
+    ButtonModule,
+    CommonModule,
+    PopoverModule,
+    AvatarModule,
+    RouterOutlet,
+    RouterLink,
+    RouterLinkActive,
+  ],
+  templateUrl: './dashboard-container.component.html',
+  styleUrl: './dashboard-container.component.scss',
 })
-export class DashboardComponent implements OnInit {
+export class DashboardContainerComponent implements OnInit {
   isSidebarExpanded: boolean = true;
   isMobile: boolean = false;
   sidebarToggle: boolean = false;
 
-  constructor(private authService: AuthService) {}
+  menuItems: any = [
+    { label: 'Dashboard', icon: 'pi pi-chart-bar  ', path: 'dashboard' },
+    { label: 'My Cards', icon: 'pi pi-credit-card', path: 'cards' },
+    { label: 'New Transaction', icon: 'pi pi-plus', path: 'new-transaction' },
+    { label: 'Payments', icon: 'pi pi-money-bill', path: 'payments' },
+  ];
+
+  constructor(
+    private authService: AuthService,
+    private cardsService: CardsService
+  ) {}
 
   ngOnInit(): void {
     const windowWidth = window.innerWidth;
     this.isMobile = windowWidth < 640;
-    this.isSidebarExpanded = windowWidth > 768;
+    this.isSidebarExpanded = windowWidth > 1280;
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
     const windowWidth = window.innerWidth;
-    this.isSidebarExpanded = windowWidth > 768;
+    this.isSidebarExpanded = windowWidth > 1280;
     this.isMobile = windowWidth < 640;
   }
 

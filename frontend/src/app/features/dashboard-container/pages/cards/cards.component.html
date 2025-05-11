@@ -1,0 +1,48 @@
+<!-- <p-colorpicker [(ngModel)]="userColor" inputId="cp-hex" /> -->
+
+<button pButton label="New Card" icon="pi pi-plus" severity="contrast" class="mb-6" size="large"></button>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+    @for (card of cards; track $index) {
+    <div class="relative w-full md:h-64 h-56 aspect-3/2 rounded-2xl text-white shadow-lg overflow-hidden custom-shadow cursor-default hover:-translate-y-2 transition-all duration-150 hover:scale-102 ease-in"
+        [ngStyle]="{ 'background': userColor | getGradientStyle }">
+        <div class="absolute inset-0 p-5 flex flex-col justify-between">
+            <div class="w-full flex justify-between">
+                <div class="flex flex-col gap-2">
+                    <span class="font-semibold text-2xl">{{ card.name }}</span>
+                    <span class="font-bold text-xl">{{ card.bank }}</span>
+                </div>
+
+                <div class="flex gap-5">
+                    <i class="pi pi-pencil hover:scale-115 transition-all duration-250 cursor-pointer"
+                        style="font-size: 18px;"></i>
+                    <i class="pi pi-info-circle hover:scale-115 transition-all duration-250 cursor-pointer"
+                        style="font-size: 18px;"></i>
+                </div>
+            </div>
+            <div class="w-full flex justify-between text-sm sm:text-base">
+                <div class="flex flex-col gap-2">
+                    <span class="font-bold">Limit: ${{ card.limit | number : '1.2-2' : 'en-US' }}</span>
+                    <span class="font-bold">Balance: ${{ card.balance | number : '1.2-2' : 'en-US' }}</span>
+                </div>
+
+                <div class="flex flex-col gap-2 text-right">
+                    <span class="font-bold">
+                        Cut-off:
+                        <span class="font-thin">
+                            {{ card.cut_off_date | date : 'dd/MM/yyyy' }}
+                        </span>
+                    </span>
+                    <span class="font-bold">
+                        Due:
+                        <span class="font-thin">
+                            {{ card.due_date | date : 'dd/MM/yyyy' }}
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    }
+</div>
