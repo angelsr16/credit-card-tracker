@@ -2,7 +2,7 @@
 
 <button pButton label="New Card" icon="pi pi-plus" severity="contrast" class="mb-6" size="large"></button>
 
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+<div class="grid grid-cols-1 2xl:grid-cols-3 lg:grid-cols-2 gap-5">
     @for (card of cards; track $index) {
     <div class="relative w-full md:h-64 h-56 aspect-3/2 rounded-2xl text-white shadow-lg overflow-hidden custom-shadow cursor-default hover:-translate-y-2 transition-all duration-150 hover:scale-102 ease-in"
         [ngStyle]="{ 'background': userColor | getGradientStyle }">
