@@ -13,8 +13,8 @@ import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
 import { Router, RouterLink } from '@angular/router';
-import { LoginFormGroup } from '../../../core/models/ui/LoginFormGroup';
-import { LoginForm } from '../../../core/models/ui/LoginForm';
+import { LoginFormGroup } from '../../../core/models/ui/login/LoginFormGroup';
+import { LoginForm } from '../../../core/models/ui/login/LoginForm';
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({

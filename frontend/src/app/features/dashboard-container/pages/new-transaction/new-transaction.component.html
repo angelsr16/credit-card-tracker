@@ -1,1 +1,91 @@
-<p>new-transaction works!</p>
+<div class="border border-gray rounded-xl p-10">
+    <h2 class="font-bold text-4xl mb-10">New Transaction</h2>
+
+    <form class="flex flex-col gap-5" [formGroup]="transactionFormGroup">
+        <div class="flex gap-4 items-start">
+            <div class="flex flex-col gap-1">
+                <label for="card"><strong>Card</strong></label>
+                <p-select id="card" [options]="cards" [(ngModel)]="selectedCard" (ngModelChange)="onCardSelected()"
+                    [ngModelOptions]="{standalone: true}" optionLabel="name" placeholder="Select a Card"
+                    class="w-full md:w-56" />
+            </div>
+
+            @if (selectedCard) {
+            <div class="flex flex-col">
+                <label for="card_limit"><strong>Available Credit</strong></label>
+                <p-inputnumber [disabled]="true" inputId="card_limit"
+                    [ngModel]="selectedCard.limit - selectedCard.balance" [ngModelOptions]="{standalone: true}" />
+            </div>
+
+            <div class="flex flex-col">
+                <label for="card_cut_off"><strong>Cut-off Date</strong></label>
+                <p-datepicker [ngModel]="selectedCard.cut_off_date" [disabled]="true"
+                    [ngModelOptions]="{standalone: true}" dateFormat="dd/mm/yy"></p-datepicker>
+            </div>
+
+            <div class="flex flex-col">
+                <label for="card_due_date"><strong>Due Date</strong></label>
+                <p-datepicker [ngModel]="selectedCard.due_date" [disabled]="true" [ngModelOptions]="{standalone: true}"
+                    dateFormat="dd/mm/yy"></p-datepicker>
+            </div>
+            }
+        </div>
+
+        @if (selectedCard) {
+        <div class=" flex gap-4 items-start">
+            <div class="flex flex-col gap-1">
+                <label for="date"><strong>Date</strong></label>
+                <p-datepicker formControlName="date" dateFormat="dd/mm/yy" />
+            </div>
+
+            <div class="flex flex-col gap-1">
+                <label for="description"><strong>Description</strong></label>
+                <input pInputText id="description" formControlName="description" type="text">
+            </div>
+        </div>
+
+        <div class="flex gap-4">
+            <div class="flex flex-col gap-1">
+                <label for="installments"><strong>Installments</strong></label>
+                <p-inputnumber formControlName="installments" inputId="installments" showButtons [min]="1" />
+            </div>
+
+            <div class="flex flex-col gap-1">
+                <label for="monthly_charge"><strong>Monthly Charge</strong></label>
+                <p-inputnumber formControlName="monthly_charge" inputId="monthly_charge" mode="currency" currency="USD"
+                    locale="en-US" />
+            </div>
+
+            <div class="flex flex-col gap-1">
+                <label for="amount"><strong>Amount</strong></label>
+                <p-inputnumber formControlName="amount" inputId="amount" mode="currency" currency="USD"
+                    locale="en-US" />
+            </div>
+
+        </div>
+
+        }
+    </form>
+
+    @if (selectedCard) {
+    <p-table styleClass="my-10" [value]="installments" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template #header>
+            <tr>
+                <th>#</th>
+                <th>Due date</th>
+                <th>Amount due</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-installment>
+            <tr>
+                <td>{{ installment.number }}</td>
+                <td>{{ installment.due_date | date : 'dd/MM/yyyy'}}</td>
+                <td>$ {{ installment.amount_due | number: '1.2-2' : 'en-US' }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    }
+
+    <button class="mt-10" [disabled]="!selectedCard || transactionFormGroup.invalid" pButton
+        label="Register Transaction" severity="contrast"></button>
+</div>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { LOCAL_STORAGE_KEY } from '../constants/local-storage-keys';
-import { LoginForm } from '../models/ui/LoginForm';
+import { LoginForm } from '../models/ui/login/LoginForm';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
